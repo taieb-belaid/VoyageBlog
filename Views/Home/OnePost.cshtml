@@ -1,0 +1,61 @@
+@model Comment_Post
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Post</title>
+    <link rel="stylesheet" href="~/css/onepost.css" />
+</head>
+
+<body>
+    <div class="one-post">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="@ViewBag.OnePost.ImageUrl" class="card-img">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@ViewBag.OnePost.Title from : @ViewBag.OnePost.Creator.UserName</h5>
+                        <p class="card-text">@ViewBag.OnePost.Description</p>
+                            @if(@ViewBag.OnePost.Creator.UserId == @Context.Session.GetInt32("userId"))
+                            {
+                                <a href="/delete/@ViewBag.OnePost.PostId">Delete</a><span> | </span><a href="/update/@ViewBag.OnePost.PostId">Update</a>
+                            }
+                        <p class="card-text"><small class="text-muted">Last updated @ViewBag.OnePost.UpdatedAt.ToString("MMMM dd") </small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+    <form action="/message/new" method="post">
+        <div class="mb-3">
+            <label  class="form-label">Post a comment </label>
+            <textarea class="form-control " asp-for="Content" rows="3"></textarea>
+        </div>
+        <input type="hidden" asp-for="UserId" value="@ViewBag.User.UserId">
+        <input type="hidden" asp-for="PostId" value="@ViewBag.OnePost.PostId">
+        <input type="submit" value="Post" class="btn btn-success">
+    </form>
+    <div class="container">
+            <div class="show-messages-comments">
+        @foreach(var c in @ViewBag.Comments.CommentPost)
+        {   
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">-from: @c.User.UserName</div>
+            <div class="card-body text-dark">
+            <p class="card-text">@c.Content</p>
+            </div>
+            </div>
+        }       
+
+
+    
+    </div>
+</body>
+
+</html>

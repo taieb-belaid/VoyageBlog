@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="~/css/main.css" />
+</head>
+
+<body>
+    <div class="d-flex">
+        <div class="left-img-main col">
+
+        </div>
+        <div class="title text-center col mt-5">
+            <h2 class="title">Welcome To Voyage: @Context.Session.GetString("userName") </h5>
+                <p class="slogant">“We are a community of travel enthusiasts who love to share our experiences through photos, stories, and tips. We believe that traveling is one of the best ways to discover new things, learn about different cultures, and create amazing memories..”</p>
+                <div class="main-action">
+                    <a class="btn btn-warning" href="/post" role="button">Post</a>
+                    <a class="btn btn-warning" href="/explore" role="button">Explore</a>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

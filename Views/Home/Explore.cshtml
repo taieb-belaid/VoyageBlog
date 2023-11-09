@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+</head>
+
+<body>
+    <div class="text-center">
+        <div class="card-deck d-flex">
+                @foreach(var p in ViewBag.Posts)
+                {
+            <div class="card-container m-2 ">
+                <div class="card" style="width: 15rem;">
+                    <img class="card-img-top" style="height: 200px;"
+                        src="@p.ImageUrl" >
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title "> <a href="/onepost/@p.PostId">@p.Title</a></h5>
+                        <p class="card-text">@p.Description</p>
+                        <p>@p.CommentPost.Count comments</p>
+                    </div>
+                </div>
+            </div>
+                }     
+        </div>
+</body>
+
+</html>
