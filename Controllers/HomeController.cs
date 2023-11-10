@@ -180,4 +180,11 @@ public class HomeController : Controller
         _context.SaveChanges();
         return RedirectToAction("Explore");
     }
+    //[____Log_Out____
+    [HttpGet("logout")]
+    public IActionResult LogOut()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Index");
+    }
 }
