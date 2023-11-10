@@ -124,7 +124,7 @@ public class HomeController : Controller
     //_______Explore_View______
     [HttpGet("explore")]
     public IActionResult Explore(){
-        ViewBag.Posts = _context.Posts.ToList();
+        ViewBag.Posts = _context.Posts.Include(c=>c.CommentPost).ToList();
         return View();
     }
     //______One_Post_View__
@@ -149,5 +149,35 @@ public class HomeController : Controller
         _context.Comments.Add(newCom);
         _context.SaveChanges();
         return RedirectToAction("explore");
+    }
+
+    //________delete_one_post__
+    [HttpGet("/delete/{postId}")]
+    public IActionResult Delete(int postId)
+    {
+        Post deletePost = _context.Posts.SingleOrDefault(p=>p.PostId == postId);
+        _context.Posts.Remove(deletePost);
+        _context.SaveChanges();
+        return RedirectToAction("Explore");
+    } 
+    //__________Edit_one_post____
+    [HttpGet("/edit/{postId}")]
+    public IActionResult EditPost(int postId)
+    {
+        Post editPost = _context.Posts.SingleOrDefault(p=>p.PostId == postId);
+        ViewBag.User = LoggedInUser;
+        return View(editPost);
+    }
+    //__________Update_One_Post
+    [HttpPost("/update/{postId}")]
+    public IActionResult Update(int postId, Post newPost)
+    {
+        Post oldPost = _context.Posts.SingleOrDefault(p=>p.PostId == postId);
+        oldPost.Title = newPost.Title;
+        oldPost.ImageUrl = newPost.ImageUrl;
+        oldPost.Description = newPost.Description;
+        oldPost.UpdatedAt = newPost.UpdatedAt;
+        _context.SaveChanges();
+        return RedirectToAction("Explore");
     }
 }

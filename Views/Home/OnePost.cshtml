@@ -22,7 +22,7 @@
                         <p class="card-text">@ViewBag.OnePost.Description</p>
                             @if(@ViewBag.OnePost.Creator.UserId == @Context.Session.GetInt32("userId"))
                             {
-                                <a href="/delete/@ViewBag.OnePost.PostId">Delete</a><span> | </span><a href="/update/@ViewBag.OnePost.PostId">Update</a>
+                                <a href="/delete/@ViewBag.OnePost.PostId">Delete</a><span> | </span><a href="/edit/@ViewBag.OnePost.PostId">Edit</a>
                             }
                         <p class="card-text"><small class="text-muted">Last updated @ViewBag.OnePost.UpdatedAt.ToString("MMMM dd") </small></p>
                     </div>
@@ -41,7 +41,7 @@
         <input type="hidden" asp-for="PostId" value="@ViewBag.OnePost.PostId">
         <input type="submit" value="Post" class="btn btn-success">
     </form>
-    <div class="container">
+    <div class="container mt-3">
             <div class="show-messages-comments">
         @foreach(var c in @ViewBag.Comments.CommentPost)
         {   
